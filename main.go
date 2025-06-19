@@ -186,6 +186,24 @@ func replaceVariables(template string, match []string) string {
 	return template
 }
 
+// 左右字符串对比,rithstr为模糊匹配字段
+func regex_strings(lestr string, rithstr string) bool {
+
+	// 将通配符表达式转换为正则表达式
+	regexPattern := wildcardToRegex(rithstr)
+
+	// 编译并匹配
+	re, err := regexp.Compile(regexPattern)
+	if err != nil {
+		fmt.Println("正则表达式编译错误:", err)
+		return false
+	}
+
+	isMatch := re.MatchString(lestr)
+	fmt.Printf("字符串 '%s' 是否匹配通配符表达式 '%s': %v\n", lestr, rithstr, isMatch)
+	return isMatch
+}
+
 // 评估条件
 func evalCondition(conditionStr string) bool {
 	parts := strings.Split(conditionStr, "==")
@@ -194,7 +212,7 @@ func evalCondition(conditionStr string) bool {
 	}
 	left := strings.TrimSpace(parts[0])
 	right := strings.TrimSpace(parts[1])
-	return left == right
+	return regex_strings(left, right)
 }
 
 // 使用规则解析 syslog 消息
