@@ -1,0 +1,2 @@
+# syslog_receive
+定义syslog协议和端口，接收syslog，通过读取rules文件中的规则对message重新拼接复制，将message和leve在本地存储、发送到远端syslog服务器或转存到MySQL数据库。
