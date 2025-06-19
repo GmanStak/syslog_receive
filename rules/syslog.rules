@@ -1,0 +1,21 @@
+{
+    "logic": [
+        {
+            "condition": "$3 == myapp",
+            "message": "$1 $2 $3 $5",
+            "level": "criti",
+            "include": "common.rules"
+        },
+        {
+            "condition": "$3 == myappc",
+            "message": "这是测试 $2 $3 $4 $10",
+            "level": "discard"
+        },
+        {
+            "condition": "default",
+            "message": "$0",
+            "level": "info",
+            "include": "common.rules"
+        }
+    ]
+}

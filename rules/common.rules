@@ -1,0 +1,9 @@
+{
+    "logic": [
+        {
+            "condition": "$3 == myapp",
+            "message": "$1 $2 $3",
+            "level": "notice"
+        }
+    ]
+}

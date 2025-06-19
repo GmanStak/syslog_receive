@@ -1,0 +1,6 @@
+myaddr: "127.0.0.1"
+myport: 3306
+myuser: "root"
+mypasswd: "password"
+mydatabase: "syslogdb"
+enable: "False"

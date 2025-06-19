@@ -1,0 +1,5 @@
+port: 514
+sendaddr:
+sendport: 514
+rulesdir: ./rules
+mod: tcp

@@ -1,0 +1,110 @@
+2025/06/17 15:06:44 <166>1 2025-06-17T10:30:00+08:00 hostname application 12345 - [exampleSDID@12345 iut="3" eventSource="Application" eventID="1011"] A critical error has occurred.
+2025/06/17 15:07:30 <166>1 2025-06-17T10:30:00+08:00 hostname application 12345 - [exampleSDID@12345 iut="3" eventSource="Application" eventID="1011"] A critical error has occurred.
+2025/06/17 15:07:49 <166>1 2025-06-17T10:30:00+08:00 hostname application 12345 - [exampleSDID@12345 iut="3" eventSource="Application" eventID="1011"] A critical error has occurred.
+2025/06/17 15:08:09 <166>1 2025-06-17T10:30:00+08:00 hostname application 12345 - [exampleSDID@12345 iut="3" eventSource="Application" eventID="1011"] A critical error has occurred.
+2025/06/17 15:09:53 <166>1 2025-06-17T10:30:00+08:00 hostname application 12345 - [exampleSDID@12345 iut="3" eventSource="Application" eventID="1011"] A critical error has occurred.
+2025/06/17 15:11:09 WARNING - "Failed request: 166 12345 exampleSDID@12345 iut="3" eventSource="Application" eventID="1011""
+<34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+<34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+<34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+<34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+2025/06/18 09:14:14 <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+2025/06/18 09:15:19 WARNING - "Failed request: 34 myapp 1234"
+2025/06/18 09:15:54 WARNING - "Failed request: 34 myapp 1234"
+2025/06/18 09:16:08 WARNING - "Failed request: 34 myapp 1234"
+2025/06/18 09:16:59 WARNING - "Failed request: 34 myapp 1234"
+2025/06/18 09:17:34 WARNING - "Failed request: 34 myapp 1234"
+2025/06/18 09:18:07 WARNING - "Failed request: 34 myapp 1234"
+2025/06/18 09:38:26 Failed to load rules file: invalid rule format: PARSE ^(\S+) - (\S+) \[(.*?)\] "(.*?)" (\d{3}) (\d+) "(.*?)" "(.*?)" "(.*?)"$
+2025/06/18 09:38:37 Failed to load rules file: invalid rule format: PARSE ^(\S+) - (\S+) \[(.*?)\] "(.*?)" (\d{3}) (\d+) "(.*?)" "(.*?)" "(.*?)"$
+2025/06/18 09:39:02 Failed to load rules file: invalid rule format: PARSE ^(\S+) - (\S+) \[(.*?)\] "(.*?)" (\d{3}) (\d+) "(.*?)" "(.*?)" "(.*?)"$
+2025/06/18 09:41:21 Failed to load rules file: invalid rule format: PARSE ^(\S+) - (\S+) \[(.*?)\] "(.*?)" (\d{3}) (\d+) "(.*?)" "(.*?)" "(.*?)"$
+2025/06/18 09:41:27 Failed to load rules file: invalid rule format: PARSE ^(\S+) - (\S+) \[(.*?)\] "(.*?)" (\d{3}) (\d+) "(.*?)" "(.*?)" "(.*?)"$
+2025/06/18 09:44:01 Failed to load rules file: invalid rule format: PARSE ^(\S+) - (\S+) \[(.*?)\] "(.*?)" (\d{3}) (\d+) "(.*?)" "(.*?)" "(.*?)"$
+<34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+criti - syslog: 34 1 2024-06-19T14:34:05.003Z
+warn - syslog: 1 2024-06-19T14:34:05.003Z myhost
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1
+info - syslog: <34>1
+info - syslog: <34>1
+discard - syslog: myhost myapp 1234
+discard - syslog: 这是测试 myhost myapp 1234
+discard - syslog: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0
+2025/06/18 14:04:46 Syslog server started on port 514
+2025/06/18 14:04:49 Received message from 127.0.0.1:54731: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+2025/06/18 14:04:49 Parsed message: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0, Level: discard
+discard - syslog: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0
+2025/06/18 14:05:46 Received message from 127.0.0.1:61981: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+2025/06/18 14:05:46 Parsed message: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0, Level: discard
+discard - syslog: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0
+2025/06/18 14:11:15 Syslog server started on port 514
+2025/06/18 14:11:18 Received message from 127.0.0.1:57945: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+2025/06/18 14:11:18 Parsed message: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0, Level: discard
+discard - syslog: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0
+discard - syslog: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0
+discard - syslog: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0
+discard - syslog: 这是测试 myhost myapp 1234 2024-06-19T14:34:05.003Z0
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+info - syslog: <34>1 2024-06-19T14:34:05.003Z myhost myapp 1234 - - This is a test message
+criti - syslog: 2024-06-19T14:34:05.003Z myhost myapp -
+notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-18 16:23:19 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-18 16:24:10 - notice - message: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-18 16:27:59 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-18 16:28:04 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-19 09:02:39 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-19 09:04:01 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-19 09:07:50 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-19 09:07:52 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-19 09:11:49 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-19 09:23:43 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp
+2025-06-19 09:26:09 - notice - syslog: 2024-06-19T14:34:05.003Z myhost myapp

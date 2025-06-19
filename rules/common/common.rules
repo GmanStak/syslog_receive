@@ -1,0 +1,9 @@
+{
+    "logic": [
+        {
+            "condition": "$4 == \"common_host\"",
+            "message": "$1 $2 $3",
+            "level": "notice"
+        }
+    ]
+}
