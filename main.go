@@ -10,6 +10,7 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -186,6 +187,14 @@ func replaceVariables(template string, match []string) string {
 	return template
 }
 
+// 匹配正则表达式
+func wildcardToRegex(pattern string) string {
+	pattern = strings.Replace(pattern, ".", "\\.", -1) // 转义点字符
+	pattern = strings.Replace(pattern, "*", ".*", -1)  // 将通配符 * 替换为正则表达式的 .*
+	pattern = strings.Replace(pattern, "?", ".", -1)   // 将通配符 ? 替换为正则表达式的 .
+	return "^" + pattern + "$"
+}
+
 // 左右字符串对比,rithstr为模糊匹配字段
 func regex_strings(lestr string, rithstr string) bool {
 
@@ -224,6 +233,8 @@ func parseSyslogMessage(message string, logic []Logic) (string, string) {
 
 // 将日志写入 MySQL 数据库
 func storeToMySQL(message string, level string) {
+	// 获取当前时间并格式化
+	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	if db == nil {
 		log.Println("Database write is disabled.")
 		return
@@ -233,7 +244,7 @@ func storeToMySQL(message string, level string) {
 	mutex.Lock()
 	defer mutex.Unlock()
 
-	_, err := db.Exec("INSERT INTO syslog (message, level) VALUES (?, ?)", message, level)
+	_, err := db.Exec("INSERT INTO syslog (currentTime, level,message) VALUES (?, ?)", currentTime, level, message)
 	if err != nil {
 		log.Printf("Failed to insert data into MySQL: %v", err)
 	}
