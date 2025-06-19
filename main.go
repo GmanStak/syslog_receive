@@ -244,7 +244,7 @@ func storeToMySQL(message string, level string) {
 	mutex.Lock()
 	defer mutex.Unlock()
 
-	_, err := db.Exec("INSERT INTO syslog (currentTime, level,message) VALUES (?, ?)", currentTime, level, message)
+	_, err := db.Exec("INSERT INTO syslog (currentTime, level,message) VALUES (?, ?, ?)", currentTime, level, message)
 	if err != nil {
 		log.Printf("Failed to insert data into MySQL: %v", err)
 	}
