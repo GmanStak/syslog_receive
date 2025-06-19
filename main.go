@@ -47,6 +47,7 @@ type Logic struct {
 	Condition string `json:"condition"`
 	Message   string `json:"message"`
 	Level     string `json:"level"`
+	Ip        string `json:"ip"`
 	Include   string `json:"include,omitempty"`
 }
 
@@ -88,7 +89,7 @@ func init() {
 }
 
 // 用于存储日志的函数
-func storeLocalLog(message string, level string) {
+func storeLocalLog(message string, ip string, level string) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05") // 获取当前时间并格式化
 	file, err := os.OpenFile("syslog.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
@@ -96,7 +97,7 @@ func storeLocalLog(message string, level string) {
 	}
 	defer file.Close()
 
-	_, err = file.WriteString(fmt.Sprintf("%s - %s - %s: %s\n", currentTime, level, "syslog", message))
+	_, err = file.WriteString(fmt.Sprintf("%s - %s - %s: %s\n", currentTime, ip, level, "syslog", message))
 	if err != nil {
 		log.Printf("Failed to write to syslog.log: %v", err)
 	}
@@ -153,7 +154,7 @@ func loadRules(rulesFilePath string) (Rule, error) {
 }
 
 // 解析逻辑规则
-func evalLogic(logic []Logic, parts []string) (string, string) {
+func evalLogic(logic []Logic, parts []string) (string, string, string) {
 	for _, rule := range logic {
 		// 跳过包含 include 的规则
 		if rule.Include != "" {
@@ -169,14 +170,15 @@ func evalLogic(logic []Logic, parts []string) (string, string) {
 		}
 
 		if condition {
+			ip := replaceVariables(rule.Ip, parts)
 			message := replaceVariables(rule.Message, parts)
 			level := replaceVariables(rule.Level, parts)
-			return message, level
+			return message, level, ip
 		}
 	}
 
 	// 默认值
-	return strings.Join(parts, " "), "info"
+	return strings.Join(parts, " "), "info", ""
 }
 
 // 替换变量
@@ -225,14 +227,14 @@ func evalCondition(conditionStr string) bool {
 }
 
 // 使用规则解析 syslog 消息
-func parseSyslogMessage(message string, logic []Logic) (string, string) {
+func parseSyslogMessage(message string, logic []Logic) (string, string, string) {
 	parts := strings.Fields(message)
-	newMessage, level := evalLogic(logic, parts)
-	return newMessage, level
+	newMessage, level, ip := evalLogic(logic, parts)
+	return newMessage, level, ip
 }
 
 // 将日志写入 MySQL 数据库
-func storeToMySQL(message string, level string) {
+func storeToMySQL(message string, level string, ip string) {
 	// 获取当前时间并格式化
 	currentTime := time.Now().Format("2006-01-02 15:04:05")
 	if db == nil {
@@ -244,7 +246,7 @@ func storeToMySQL(message string, level string) {
 	mutex.Lock()
 	defer mutex.Unlock()
 
-	_, err := db.Exec("INSERT INTO syslog (currentTime, level,message) VALUES (?, ?, ?)", currentTime, level, message)
+	_, err := db.Exec("INSERT INTO syslog (currentTime,ip, level,message) VALUES (?, ?, ?, ?)", currentTime, ip, level, message)
 	if err != nil {
 		log.Printf("Failed to insert data into MySQL: %v", err)
 	}
@@ -254,17 +256,17 @@ func storeToMySQL(message string, level string) {
 func handleSyslogMessage(message string, rule Rule) {
 	log.Printf("Received message: %s", message)
 
-	parsedMessage, level := parseSyslogMessage(message, rule.Logic)
-	log.Printf("Parsed message: %s, Level: %s", parsedMessage, level)
+	parsedMessage, level, ip := parseSyslogMessage(message, rule.Logic)
+	log.Printf("Parsed message: %s, Level: %s, Ip: %s", parsedMessage, level, ip)
 
 	// 存储到本地日志文件
-	storeLocalLog(parsedMessage, level)
+	storeLocalLog(parsedMessage, level, ip)
 
 	// 存储到 MySQL 数据库（如果启用了）
 	if level != "discard" {
-		storeToMySQL(parsedMessage, level)
+		storeToMySQL(parsedMessage, level, ip)
 	}
-	
+
 	// 如果有远程转发地址，则进行远程转发
 	//if Config.SendAddr != "" {
 	//	if level == "discard" {
