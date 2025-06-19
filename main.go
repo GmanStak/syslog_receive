@@ -261,7 +261,7 @@ func handleSyslogMessage(message string, rule Rule) {
 	storeLocalLog(parsedMessage, level)
 
 	// 存储到 MySQL 数据库（如果启用了）
-	if level == "discard" {
+	if level != "discard" {
 		storeToMySQL(parsedMessage, level)
 	}
 	
