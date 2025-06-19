@@ -261,10 +261,17 @@ func handleSyslogMessage(message string, rule Rule) {
 	storeLocalLog(parsedMessage, level)
 
 	// 存储到 MySQL 数据库（如果启用了）
-	storeToMySQL(parsedMessage, level)
-
+	if level == "discard" {
+		storeToMySQL(parsedMessage, level)
+	}
+	
 	// 如果有远程转发地址，则进行远程转发
-	// 这里省略了远程转发的代码，可以根据需要添加
+	//if Config.SendAddr != "" {
+	//	if level == "discard" {
+	//		continue
+	//	}
+	//	sendRemoteLog(parsedMessage, level, config.SendAddr, config.SendPort)
+	//}
 }
 
 func main() {
