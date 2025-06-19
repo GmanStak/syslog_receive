@@ -1,7 +1,7 @@
 {
     "logic": [
         {
-            "condition": "$3 == myapp",
+            "condition": "$3 == myap*",
             "message": "$1 $2 $3 $5",
             "level": "criti",
             "include": "common.rules"
