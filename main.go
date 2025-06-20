@@ -183,8 +183,9 @@ func evalLogic(logic []Logic, parts []string) (string, string, string) {
 
 // 替换变量
 func replaceVariables(template string, match []string) string {
-	for i, val := range match {
-		template = strings.ReplaceAll(template, fmt.Sprintf("$%d", i), val)
+	// 从高索引向低索引进行替换
+	for i := len(match) - 1; i >= 0; i-- {
+		template = strings.ReplaceAll(template, fmt.Sprintf("$%d", i+1), match[i])
 	}
 	return template
 }
@@ -226,9 +227,20 @@ func evalCondition(conditionStr string) bool {
 	return regex_strings(left, right)
 }
 
+// 自定义分隔符函数
+func isDelimiter(r rune) bool {
+	return unicode.IsSpace(r) || r == ',' || r == '|'
+}
+
+// 使用自定义分隔符切分字符串
+func splitString(input string) []string {
+	return strings.FieldsFunc(input, isDelimiter)
+}
+
 // 使用规则解析 syslog 消息
 func parseSyslogMessage(message string, logic []Logic) (string, string, string) {
-	parts := strings.Fields(message)
+	//parts := strings.Fields(message)
+	parts := splitString(message)
 	newMessage, level, ip := evalLogic(logic, parts)
 	return newMessage, level, ip
 }
