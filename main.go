@@ -97,7 +97,7 @@ func storeLocalLog(message string, ip string, level string) {
 	}
 	defer file.Close()
 
-	_, err = file.WriteString(fmt.Sprintf("%s - %s - %s: %s\n", currentTime, ip, level, "syslog", message))
+	_, err = file.WriteString(fmt.Sprintf("%s - %s - %s - %s: %s\n", currentTime, ip, level, "syslog", message))
 	if err != nil {
 		log.Printf("Failed to write to syslog.log: %v", err)
 	}
