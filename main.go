@@ -89,13 +89,24 @@ func init() {
 }
 
 // 用于存储日志的函数
-func storeLocalLog(message string, ip string, level string) {
+func storeLocalLog(message string, level string, ip  string) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05") // 获取当前时间并格式化
 	file, err := os.OpenFile("syslog.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatalf("Failed to open syslog.log: %v", err)
 	}
 	defer file.Close()
+
+	// 确保所有字段都是字符串类型
+	if ip == "" {
+		ip = "Unknown"
+	}
+	if level == "" {
+		level = "Unknown"
+	}
+
+	// 转义 message 中的特殊字符
+	message = strings.ReplaceAll(message, "\"", "\\\"")
 
 	_, err = file.WriteString(fmt.Sprintf("%s - %s - %s - %s: %s\n", currentTime, ip, level, "syslog", message))
 	if err != nil {
