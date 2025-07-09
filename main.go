@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql" // 导入 MySQL 驱动程序
+	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"net"
@@ -14,9 +16,7 @@ import (
 	"strings"
 	"sync"
 	"time"
-
-	_ "github.com/go-sql-driver/mysql" // 导入 MySQL 驱动程序
-	"gopkg.in/yaml.v2"
+	"unicode"
 )
 
 // 定义配置结构
@@ -89,7 +89,7 @@ func init() {
 }
 
 // 用于存储日志的函数
-func storeLocalLog(message string, level string, ip  string) {
+func storeLocalLog(message string, level string, ip string) {
 	currentTime := time.Now().Format("2006-01-02 15:04:05") // 获取当前时间并格式化
 	file, err := os.OpenFile("syslog.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
@@ -194,7 +194,9 @@ func evalLogic(logic []Logic, parts []string) (string, string, string) {
 
 // 替换变量
 func replaceVariables(template string, match []string) string {
-	// 从高索引向低索引进行替换
+	//for i, val := range match {
+	//	template = strings.ReplaceAll(template, fmt.Sprintf("$_%d_", i), val)
+	//}
 	for i := len(match) - 1; i >= 0; i-- {
 		template = strings.ReplaceAll(template, fmt.Sprintf("$%d", i+1), match[i])
 	}
@@ -249,10 +251,13 @@ func splitString(input string) []string {
 }
 
 // 使用规则解析 syslog 消息
-func parseSyslogMessage(message string, logic []Logic) (string, string, string) {
+func parseSyslogMessage(message string, logic []Logic, srip string) (string, string, string) {
 	//parts := strings.Fields(message)
 	parts := splitString(message)
 	newMessage, level, ip := evalLogic(logic, parts)
+	if ip == "" {
+		return newMessage, level, srip
+	}
 	return newMessage, level, ip
 }
 
@@ -269,17 +274,18 @@ func storeToMySQL(message string, level string, ip string) {
 	mutex.Lock()
 	defer mutex.Unlock()
 
-	_, err := db.Exec("INSERT INTO syslog (currentTime,ip, level,message) VALUES (?, ?, ?, ?)", currentTime, ip, level, message)
+	_, err := db.Exec("INSERT INTO syslog (currentTime, ip, level, message) VALUES (?, ?, ?, ?)", currentTime, ip, level, message)
 	if err != nil {
 		log.Printf("Failed to insert data into MySQL: %v", err)
 	}
 }
 
 // 处理单个 syslog 消息
-func handleSyslogMessage(message string, rule Rule) {
+func handleSyslogMessage(message string, rule Rule, recip string) {
 	log.Printf("Received message: %s", message)
-
-	parsedMessage, level, ip := parseSyslogMessage(message, rule.Logic)
+	srcIp := strings.Split(recip, ":")[0]
+	nMessage := srcIp + " " + message
+	parsedMessage, level, ip := parseSyslogMessage(nMessage, rule.Logic, srcIp)
 	log.Printf("Parsed message: %s, Level: %s, Ip: %s", parsedMessage, level, ip)
 
 	// 存储到本地日志文件
@@ -356,7 +362,9 @@ func main() {
 				}
 
 				message := strings.TrimSpace(string(buffer[:n]))
-				handleSyslogMessage(message, rule)
+				srcAddr := conn.RemoteAddr().String()                            // 获取发送源地址并转换为字符串
+				log.Printf("Received TCP message from %s: %s", srcAddr, message) // 输出发送源地址和消息
+				handleSyslogMessage(message, rule, srcAddr)
 			}(conn)
 		}
 
@@ -389,7 +397,9 @@ func main() {
 				defer wg.Done()
 
 				message := strings.TrimSpace(string(buffer[:n]))
-				handleSyslogMessage(message, rule)
+				srcAddr := src.String()                                          // 获取发送源地址并转换为字符串
+				log.Printf("Received UDP message from %s: %s", srcAddr, message) // 输出发送源地址和消息
+				handleSyslogMessage(message, rule, srcAddr)
 			}(src, buffer, n)
 		}
 
