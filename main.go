@@ -253,10 +253,14 @@ func splitString(input string) []string {
 // 使用规则解析 syslog 消息
 func parseSyslogMessage(message string, logic []Logic, srip string) (string, string, string) {
 	//parts := strings.Fields(message)
-	parts := splitString(message)
+	nMessage := srip + " " + message
+	parts := splitString(nMessage)
 	newMessage, level, ip := evalLogic(logic, parts)
 	if ip == "" {
-		return newMessage, level, srip
+		ip = srip
+	}
+	if newMessage == "" {
+		newMessage = message
 	}
 	return newMessage, level, ip
 }
